@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { BrowserRouter, Routes, Route, NavLink, Navigate, useLocation } from 'react-router-dom';
-import { Mail, Briefcase, Code, Terminal, Award, ChevronDown, ChevronUp, Linkedin, Download, ChartNoAxesCombined, GraduationCap, ShieldCheck, Cpu } from 'lucide-react';
+import { Mail, Briefcase, Code, Terminal, Award, ChevronDown, ChevronUp, Linkedin, Download, ChartNoAxesCombined, GraduationCap, ShieldCheck, Cpu, Layers, Beaker, MousePointer2, X } from 'lucide-react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import DataNodeBackground from './components/DataNodeBackground';
@@ -16,24 +16,71 @@ const PageTransition = ({ children }: { children: React.ReactNode }) => (
   </motion.div>
 );
 
-const ProjectCard = ({ title, description, tags, subtitle }: { title: string, description: string, tags: string[], subtitle?: string }) => {
+const ImageModal = ({ isOpen, onClose, image, title }: { isOpen: boolean, onClose: () => void, image: string, title: string }) => {
+  if (!isOpen) return null;
   return (
-    <div className="card">
-      <div className="card-header">
-        <div className="card-title">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="modal-overlay"
+      onClick={onClose}
+    >
+      <motion.div 
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        className="modal-content"
+        onClick={e => e.stopPropagation()}
+      >
+        <div className="modal-header">
           <h3>{title}</h3>
-          {subtitle && <span>{subtitle}</span>}
+          <button onClick={onClose} className="modal-close"><X size={20} /></button>
         </div>
+        <img src={image} alt={title} className="modal-image" />
+      </motion.div>
+    </motion.div>
+  );
+};
+
+const ProjectCard = ({ title, description, tags, subtitle, image }: { title: string, description: string, tags: string[], subtitle?: string, image?: string }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  return (
+    <>
+      <div 
+        className={`card project-card-clickable ${image ? 'has-preview' : ''}`}
+        onClick={() => image && setIsModalOpen(true)}
+      >
+        <div className="card-header">
+          <div className="card-title">
+            <h3>{title}</h3>
+            {subtitle && <span>{subtitle}</span>}
+          </div>
+          {image && <MousePointer2 size={16} className="preview-hint" />}
+        </div>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', lineHeight: '1.6' }}>
+          {description}
+        </p>
+        <div className="skill-tags">
+          {tags.map(tag => (
+            <span key={tag} className="skill-tag">{tag}</span>
+          ))}
+        </div>
+        {image && <div className="preview-label">Click to preview project</div>}
       </div>
-      <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', lineHeight: '1.6' }}>
-        {description}
-      </p>
-      <div className="skill-tags">
-        {tags.map(tag => (
-          <span key={tag} className="skill-tag">{tag}</span>
-        ))}
-      </div>
-    </div>
+
+      {image && (
+        <AnimatePresence>
+          <ImageModal 
+            isOpen={isModalOpen} 
+            onClose={() => setIsModalOpen(false)} 
+            image={image} 
+            title={title} 
+          />
+        </AnimatePresence>
+      )}
+    </>
   );
 };
 
@@ -200,8 +247,9 @@ function App() {
         </div>
         <nav className="glass-nav">
           <NavLink to="/experience" className={({ isActive }) => isActive ? 'active' : ''}>Experience</NavLink>
-          <NavLink to="/ai-lab" className={({ isActive }) => isActive ? 'active' : ''}>AI Lab & Projects</NavLink>
-          <NavLink to="/data-strategy" className={({ isActive }) => isActive ? 'active' : ''}>Data & Strategy</NavLink>
+          <NavLink to="/ai-lab" className={({ isActive }) => isActive ? 'active' : ''}>AI Lab</NavLink>
+          <NavLink to="/data-lab" className={({ isActive }) => isActive ? 'active' : ''}>Data Lab</NavLink>
+          <NavLink to="/strategy" className={({ isActive }) => isActive ? 'active' : ''}>Strategic Frameworks</NavLink>
           <NavLink to="/contact" className={({ isActive }) => isActive ? 'active' : ''}>Contact Me</NavLink>
         </nav>
       </header>
@@ -317,18 +365,21 @@ function App() {
                     subtitle="Automation & Agents"
                     description="Automated the processing of thousands of unstructured data entries. By leveraging Gemini CLI, I reduced manual data-entry by 90% and established a scalable taxonomy for better analytical hygiene."
                     tags={["Gemini CLI", "AI Agents", "Data Parsing"]}
+                    image="/assets/Dans_Gemini_CLI_Process.gif"
                   />
                   <ProjectCard 
                     title="AI-Assisted PostgreSQL App Prototype"
                     subtitle="Data Engineering"
                     description="Spearheaded the rapid development of a full-stack database application. Used AI-assisted tools to architect complex PostgreSQL schemas and generate boilerplate code, accelerating time-to-market."
                     tags={["PostgreSQL", "AI Assisted Development", "Rapid Prototyping"]}
+                    image="/assets/DansApp.PNG"
                   />
                   <ProjectCard 
                     title="Speech-to-JSON Workflow Automation"
                     subtitle="Workflow Efficiency"
                     description="Created a high-impact workflow that converts raw speech files into structured JSON data. This enables immediate integration into downstream CRM and BI systems for automated insights."
                     tags={["Workflow Automation", "Speech-to-Text AI", "JSON"]}
+                    image="/assets/make_com Scenario.PNG"
                   />
                   <ProjectCard 
                     title="AI Website Design & Creation"
@@ -354,34 +405,69 @@ function App() {
               </section>
             </PageTransition>
           } />
-          <Route path="/data-strategy" element={
+          <Route path="/data-lab" element={
             <PageTransition>
               <section>
-                <h2><ChartNoAxesCombined size={24} /> Data & Strategy</h2>
-                <ProjectCard 
-                  title="SQL Data Feed Re-engineering"
-                  subtitle="Enterprise Data"
-                  description="Optimised complex data pipelines for enterprise-scale CRM at Just Eat. Reduced reliance on external engineering tickets by 40% through agile SQL adjustments and feed ownership."
-                  tags={["SQL", "Data Architecture", "Salesforce Marketing Cloud"]}
-                />
-                <div className="card">
-                  <div className="card-header">
-                    <div className="card-title">
-                      <h3>Strategic Cohort Analysis</h3>
-                      <span>Retention Strategy</span>
+                <h2><ChartNoAxesCombined size={24} /> Data Lab</h2>
+                <div className="project-grid">
+                  <ProjectCard 
+                    title="SQL Data Feed Re-engineering"
+                    subtitle="Enterprise Data"
+                    description="Optimised complex data pipelines for enterprise-scale CRM at Just Eat. Reduced reliance on external engineering tickets by 40% through agile SQL adjustments and feed ownership."
+                    tags={["SQL", "Data Architecture", "Salesforce Marketing Cloud"]}
+                  />
+                  <div className="card">
+                    <div className="card-header">
+                      <div className="card-title">
+                        <h3>Strategic Cohort Analysis</h3>
+                        <span>Retention Strategy</span>
+                      </div>
+                    </div>
+                    <p style={{color: 'var(--text-muted)', marginBottom: '1.5rem', lineHeight: '1.6'}}>
+                      Expertise in performing deep-dive cohort analysis to track customer retention and attrition over time. Utilising data-driven insights to identify churn patterns and implement targeted intervention strategies.
+                    </p>
+                    <div className="project-image" style={{borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--card-border)'}}>
+                      <RetentionHeatmap />
+                    </div>
+                    <div className="skill-tags" style={{marginTop: '1.5rem'}}>
+                      <span className="skill-tag">Retention Analysis</span>
+                      <span className="skill-tag">Data Visualisation</span>
+                      <span className="skill-tag">CRM Strategy</span>
                     </div>
                   </div>
-                  <p style={{color: 'var(--text-muted)', marginBottom: '1.5rem', lineHeight: '1.6'}}>
-                    Expertise in performing deep-dive cohort analysis to track customer retention and attrition over time. Utilising data-driven insights to identify churn patterns and implement targeted intervention strategies.
-                  </p>
-                  <div className="project-image" style={{borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--card-border)'}}>
-                    <RetentionHeatmap />
-                  </div>
-                  <div className="skill-tags" style={{marginTop: '1.5rem'}}>
-                    <span className="skill-tag">Retention Analysis</span>
-                    <span className="skill-tag">Data Visualisation</span>
-                    <span className="skill-tag">CRM Strategy</span>
-                  </div>
+                </div>
+              </section>
+            </PageTransition>
+          } />
+          <Route path="/strategy" element={
+            <PageTransition>
+              <section>
+                <h2><Layers size={24} /> Strategic Frameworks</h2>
+                <div className="project-grid">
+                  <ProjectCard 
+                    title="Retention Engine & Personalization"
+                    subtitle="Engagement Strategy"
+                    description="Designing 1:1 personalization frameworks that leverage predictive behavioral data to proactively mitigate churn. Focus on high-value user retention through dynamic reward systems and automated re-engagement."
+                    tags={["Retention", "Churn Prevention", "Personalization"]}
+                  />
+                  <ProjectCard 
+                    title="Lifecycle Architecture & Automation"
+                    subtitle="Operational Efficiency"
+                    description="Building end-to-end automated customer journeys from acquisition to advocacy. Streamlining complex multi-channel touchpoints (Email, SMS, WhatsApp, In-App) to create a seamless user experience."
+                    tags={["Lifecycle Marketing", "Automation", "CX"]}
+                  />
+                  <ProjectCard 
+                    title="Experimentation & Testing Framework"
+                    subtitle="Data-Driven Growth"
+                    description="Establishing rigorous A/B/n testing cultures to optimize campaign performance. Utilizing incrementality measurement and significance testing to ensure every strategic move translates to measurable ROI."
+                    tags={["A/B Testing", "Incrementality", "ROI"]}
+                  />
+                  <ProjectCard 
+                    title="CRM Infrastructure & Governance"
+                    subtitle="Systems Leadership"
+                    description="Scaling CRM operations for multi-brand and multi-market organizations. Implementing robust data governance and system integrations that allow for agile strategic pivots without technical debt."
+                    tags={["Governance", "Infrastructure", "Scalability"]}
+                  />
                 </div>
               </section>
             </PageTransition>

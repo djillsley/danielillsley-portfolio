@@ -277,9 +277,115 @@ h2 {
   gap: 1.5rem;
 }
 
+.project-card-clickable {
+  cursor: default;
+}
+
+.project-card-clickable.has-preview {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.preview-hint {
+  color: var(--accent);
+  opacity: 0.6;
+  transition: transform 0.3s ease;
+}
+
+.project-card-clickable.has-preview:hover .preview-hint {
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+.preview-label {
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-card-clickable.has-preview:hover .preview-label {
+  opacity: 0.8;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+  padding: 2rem;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  max-width: 1000px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid var(--card-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.modal-header h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-main);
+}
+
+.modal-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  max-height: calc(90vh - 80px);
+  display: block;
+}
+
 @media (max-width: 768px) {
   .project-grid {
     grid-template-columns: 1fr;
+  }
+  .modal-overlay {
+    padding: 1rem;
   }
 }
 
