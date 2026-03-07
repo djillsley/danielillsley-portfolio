@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { BrowserRouter, Routes, Route, NavLink, Navigate, useLocation } from 'react-router-dom';
-import { Mail, Briefcase, Code, Terminal, Award, ChevronDown, ChevronUp, Linkedin, Download, ChartNoAxesCombined, GraduationCap, ShieldCheck, Cpu, Layers, Beaker, MousePointer2, X } from 'lucide-react';
+import { Mail, Briefcase, Code, Terminal, Award, ChevronDown, ChevronUp, Linkedin, Download, ChartNoAxesCombined, GraduationCap, ShieldCheck, Cpu, Layers, MousePointer2, X } from 'lucide-react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import DataNodeBackground from './components/DataNodeBackground';
