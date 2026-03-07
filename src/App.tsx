@@ -16,22 +16,24 @@ const PageTransition = ({ children }: { children: React.ReactNode }) => (
   </motion.div>
 );
 
-const TerminalProjectCard = ({ title, description, tags }: { title: string, description: string, tags: string[] }) => {
+const AIProjectCard = ({ title, description, tags, status }: { title: string, description: string, tags: string[], status: string }) => {
   return (
-    <div className="terminal-card">
-      <div className="terminal-header">
-        <div className="terminal-dots">
-          <span></span><span></span><span></span>
-        </div>
-        <div className="terminal-title">{title}</div>
-      </div>
-      <div className="terminal-body">
-        <div className="terminal-prompt">$ <span className="terminal-cmd">inspect project --name "{title}"</span></div>
-        <p className="terminal-text">{description}</p>
-        <div className="skill-tags" style={{ marginTop: '1rem' }}>
-          {tags.map(tag => (
-            <span key={tag} className="skill-tag terminal-tag">{tag}</span>
-          ))}
+    <div className="ai-project-card">
+      <div className="ai-card-content">
+        <div className="ai-card-tag">PROJECT CASE STUDY</div>
+        <h3 className="ai-card-title">{title}</h3>
+        <p className="ai-card-description">{description}</p>
+        
+        <div className="ai-status-bar">
+          <div className="status-indicator">
+            <span className="status-dot"></span>
+            <span className="status-text">STATUS: {status}</span>
+          </div>
+          <div className="ai-tech-stack">
+            {tags.map(tag => (
+              <span key={tag} className="tech-tag">{tag}</span>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -312,26 +314,30 @@ function App() {
             <PageTransition>
               <section>
                 <h2><Cpu size={24} /> AI Lab & Projects</h2>
-                <div className="terminal-grid">
-                  <TerminalProjectCard 
+                <div className="ai-project-grid">
+                  <AIProjectCard 
                     title="Automated Data Categorisation Agent"
-                    description="Utilised Gemini CLI to automate the categorisation of unstructured data, significantly reducing manual data-entry hours and improving data hygiene."
+                    description="Automated the processing of thousands of unstructured data entries. By leveraging Gemini CLI, I reduced manual data-entry by 90% and established a scalable taxonomy for better analytical hygiene."
                     tags={["Gemini CLI", "AI Agents", "Data Parsing"]}
+                    status="COMPLETED"
                   />
-                  <TerminalProjectCard 
+                  <AIProjectCard 
                     title="AI-Assisted PostgreSQL App Prototype"
-                    description="Prototyped a PostgreSQL-based application leveraging AI-assisted development tools to accelerate the database architecture and initial codebase generation."
+                    description="Spearheaded the rapid development of a full-stack database application. Used AI-assisted tools to architect complex PostgreSQL schemas and generate boilerplate code, accelerating time-to-market."
                     tags={["PostgreSQL", "AI Assisted Development", "Rapid Prototyping"]}
+                    status="ACTIVE"
                   />
-                  <TerminalProjectCard 
+                  <AIProjectCard 
                     title="Speech-to-JSON Workflow Automation"
-                    description="Spearheaded AI agent creation and workflow automations, including using AI to parse raw speech into structured JSON objects for automated downstream processing."
+                    description="Created a high-impact workflow that converts raw speech files into structured JSON data. This enables immediate integration into downstream CRM and BI systems for automated insights."
                     tags={["Workflow Automation", "Speech-to-Text AI", "JSON"]}
+                    status="LIVE"
                   />
-                  <TerminalProjectCard 
+                  <AIProjectCard 
                     title="AI-Assisted Photo Organiser"
-                    description="Built an autonomous PowerShell tool using Gemini CLI to process thousands of images across a NAS. Extracted EXIF metadata, performed reverse geocoding via OpenStreetMap API, and auto-organised files into location-based hierarchies."
-                    tags={["PowerShell", "AI Agents", "REST APIs", "Automation"]}
+                    description="Built an autonomous PowerShell tool using Gemini CLI to process large-scale image libraries on a NAS. Extracted EXIF metadata and geocoding to auto-organise files into location hierarchies."
+                    tags={["PowerShell", "REST APIs", "Automation"]}
+                    status="ACTIVE"
                   />
                 </div>
               </section>
