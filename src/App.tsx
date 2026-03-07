@@ -1,7 +1,42 @@
 import { useEffect, useRef } from 'react';
 import { BrowserRouter, Routes, Route, NavLink, Navigate, useLocation } from 'react-router-dom';
-import { Mail, Briefcase, Code, Terminal, Award, FileText, ChevronDown, ChevronUp, Linkedin, Download, ChartNoAxesCombined, GraduationCap, ShieldCheck } from 'lucide-react';
+import { Mail, Briefcase, Code, Terminal, Award, FileText, ChevronDown, ChevronUp, Linkedin, Download, ChartNoAxesCombined, GraduationCap, ShieldCheck, Cpu } from 'lucide-react';
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import DataNodeBackground from './components/DataNodeBackground';
+
+const PageTransition = ({ children }: { children: React.ReactNode }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -20 }}
+    transition={{ duration: 0.3, ease: 'easeOut' }}
+  >
+    {children}
+  </motion.div>
+);
+
+const TerminalProjectCard = ({ title, description, tags }: { title: string, description: string, tags: string[] }) => {
+  return (
+    <div className="terminal-card">
+      <div className="terminal-header">
+        <div className="terminal-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <div className="terminal-title">{title}</div>
+      </div>
+      <div className="terminal-body">
+        <div className="terminal-prompt">$ <span className="terminal-cmd">inspect project --name "{title}"</span></div>
+        <p className="terminal-text">{description}</p>
+        <div className="skill-tags" style={{ marginTop: '1rem' }}>
+          {tags.map(tag => (
+            <span key={tag} className="skill-tag terminal-tag">{tag}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const RetentionHeatmap = () => {
   const cohorts = [
@@ -66,28 +101,40 @@ const JobCard = ({ title, company, date, bullets }: { title: string, company: st
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className="card">
+    <motion.div 
+      className="card"
+      layout
+      transition={{ layout: { duration: 0.3, type: "spring" } }}
+    >
       <div className="card-header">
         <div className="card-title">
-          <h3>{title}</h3>
-          <span>{company}</span>
+          <motion.h3 layout="position">{title}</motion.h3>
+          <motion.span layout="position">{company}</motion.span>
         </div>
-        <div className="card-date">{date}</div>
+        <motion.div layout="position" className="card-date">{date}</motion.div>
       </div>
-      <div className={`collapsible-content ${isExpanded ? 'expanded' : 'collapsed'}`}>
+      <motion.div 
+        layout
+        className={`collapsible-content ${isExpanded ? 'expanded' : 'collapsed'}`}
+      >
         <ul>
           {bullets.map((bullet, idx) => (
-            <li key={idx}>
+            <motion.li 
+              key={idx}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: idx * 0.05 }}
+            >
               {bullet.bold && <strong>{bullet.bold}: </strong>}
               {bullet.text}
-            </li>
+            </motion.li>
           ))}
         </ul>
-      </div>
+      </motion.div>
       <button className="toggle-btn" onClick={() => setIsExpanded(!isExpanded)}>
         {isExpanded ? <><ChevronUp size={16} /> Show Less</> : <><ChevronDown size={16} /> Read Full Details</>}
       </button>
-    </div>
+    </motion.div>
   );
 };
 
@@ -107,70 +154,86 @@ const ContactForm = () => {
   }, [location]);
 
   return (
-    <section>
-      <h2><Mail size={24} /> Get in Touch</h2>
-      <p className="subtitle" style={{marginBottom: '2rem'}}>
-        Interested in discussing technical strategy, AI automation, or my experience in the CRM space? Use the secure form below.
-      </p>
-      <div ref={jotformContainer}></div>
-    </section>
+    <PageTransition>
+      <section>
+        <h2><Mail size={24} /> Get in Touch</h2>
+        <p className="subtitle" style={{marginBottom: '2rem'}}>
+          Interested in discussing technical strategy, AI automation, or my experience in the CRM space? Use the secure form below.
+        </p>
+        <div className="card" style={{ padding: '0.5rem', background: 'rgba(38, 38, 38, 0.5)', backdropFilter: 'blur(10px)' }}>
+          <div ref={jotformContainer}></div>
+        </div>
+      </section>
+    </PageTransition>
   );
 };
 
 function App() {
-  return (
-    <BrowserRouter>
-      <div className="app-container">
-        <header>
-          <h1>Daniel J Illsley</h1>
-          <p className="subtitle">Strategic Technical Leader & CRM Architect</p>
-          <div className="contact-links" style={{marginBottom: '2rem'}}>
-            <a href="https://www.linkedin.com/in/daniel-illsley-9a0a96109/" target="_blank" rel="noopener noreferrer">
-              <Linkedin size={18} /> LinkedIn
-            </a>
-            <a href="https://drive.google.com/file/d/1B_TOkzmmDE1YWRl036QVhHqXWSwyI3cC/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-              <Download size={18} /> Download CV
-            </a>
-          </div>
-          <nav>
-            <NavLink to="/experience" className={({ isActive }) => isActive ? 'active' : ''}>Experience</NavLink>
-            <NavLink to="/ai-lab" className={({ isActive }) => isActive ? 'active' : ''}>AI Lab & Projects</NavLink>
-            <NavLink to="/data-strategy" className={({ isActive }) => isActive ? 'active' : ''}>Data & Strategy</NavLink>
-            <NavLink to="/contact" className={({ isActive }) => isActive ? 'active' : ''}>Contact Me</NavLink>
-          </nav>
-        </header>
+  const location = useLocation();
 
-        <Routes>
+  return (
+    <div className="app-container">
+      <DataNodeBackground />
+      <header>
+        <motion.h1 
+          initial={{ opacity: 0, filter: 'blur(10px)' }}
+          animate={{ opacity: 1, filter: 'blur(0px)' }}
+          transition={{ duration: 0.8 }}
+          className="glow-text"
+        >
+          Daniel J Illsley
+        </motion.h1>
+        <motion.p 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="subtitle"
+        >
+          Strategic Technical Leader & CRM Architect
+        </motion.p>
+        <div className="contact-links" style={{marginBottom: '2rem'}}>
+          <a href="https://www.linkedin.com/in/daniel-illsley-9a0a96109/" target="_blank" rel="noopener noreferrer">
+            <Linkedin size={18} /> LinkedIn
+          </a>
+          <a href="https://drive.google.com/file/d/1B_TOkzmmDE1YWRl036QVhHqXWSwyI3cC/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+            <Download size={18} /> Download CV
+          </a>
+        </div>
+        <nav className="glass-nav">
+          <NavLink to="/experience" className={({ isActive }) => isActive ? 'active' : ''}>Experience</NavLink>
+          <NavLink to="/ai-lab" className={({ isActive }) => isActive ? 'active' : ''}>AI Lab & Projects</NavLink>
+          <NavLink to="/data-strategy" className={({ isActive }) => isActive ? 'active' : ''}>Data & Strategy</NavLink>
+          <NavLink to="/contact" className={({ isActive }) => isActive ? 'active' : ''}>Contact Me</NavLink>
+        </nav>
+      </header>
+
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Navigate to="/experience" replace />} />
           <Route path="/experience" element={
-            <>
+            <PageTransition>
               <section>
                 <h2><Award size={24} /> Qualifications & Certifications</h2>
                 <div className="qual-grid">
-                  <div className="qual-item">
-                    <Award size={18} className="icon-green" />
-                    <span>Level 5 CMI Management & Leadership</span>
-                  </div>
-                  <div className="qual-item">
-                    <GraduationCap size={18} className="icon-green" />
-                    <span>BSc Business Statistics (UEA)</span>
-                  </div>
-                  <div className="qual-item">
-                    <ShieldCheck size={18} className="icon-green" />
-                    <span>Google AI for Professionals</span>
-                  </div>
-                  <div className="qual-item">
-                    <ShieldCheck size={18} className="icon-green" />
-                    <span>HubSpot Marketing Hub Certified</span>
-                  </div>
-                  <div className="qual-item">
-                    <ShieldCheck size={18} className="icon-green" />
-                    <span>Klaviyo Product Certified</span>
-                  </div>
-                  <div className="qual-item">
-                    <Award size={18} className="icon-green" />
-                    <span>Level 2 Certificate in Enterprise</span>
-                  </div>
+                  {[
+                    { icon: Award, text: "Level 5 CMI Management & Leadership" },
+                    { icon: GraduationCap, text: "BSc Business Statistics (UEA)" },
+                    { icon: ShieldCheck, text: "Google AI for Professionals" },
+                    { icon: ShieldCheck, text: "HubSpot Marketing Hub Certified" },
+                    { icon: ShieldCheck, text: "Klaviyo Product Certified" },
+                    { icon: Award, text: "Level 2 Certificate in Enterprise" }
+                  ].map((item, i) => (
+                    <motion.div 
+                      key={i} 
+                      className="qual-item"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: i * 0.1 }}
+                    >
+                      <item.icon size={18} className="icon-green" />
+                      <span>{item.text}</span>
+                    </motion.div>
+                  ))}
                 </div>
               </section>
 
@@ -214,22 +277,6 @@ function App() {
                     { bold: "Direct Mail Optimisation", text: "Optimised direct mail schedules for maximum impact and ROI." }
                   ]}
                 />
-                <JobCard 
-                  title="Retention Team Leader"
-                  company="Win Technologies, London"
-                  date="Jan 2014 — Mar 2016"
-                  bullets={[
-                    { bold: "Team Leadership", text: "Led a retention and CRM team operating in different regions across casino and bingo products. Responsible for translating high level strategy into localised execution and monthly KPI reporting." }
-                  ]}
-                />
-                <JobCard 
-                  title="Loyalty (Retention) Executive"
-                  company="Win Technologies, London"
-                  date="Aug 2012 — Jan 2014"
-                  bullets={[
-                    { bold: "Promotional Design", text: "Creation of promotions and analysing the results. Including back office set up and project management." }
-                  ]}
-                />
               </section>
 
               <section>
@@ -259,94 +306,82 @@ function App() {
                   </div>
                 </div>
               </section>
-            </>
+            </PageTransition>
           } />
           <Route path="/ai-lab" element={
-            <section>
-              <h2><FileText size={24} /> AI Lab & Projects</h2>
-              <div className="card">
-                <h3>Automated Data Categorisation Agent</h3>
-                <p style={{color: 'var(--text-muted)', marginBottom: '1rem'}}>
-                  Utilised Gemini CLI to automate the categorisation of unstructured data, significantly reducing manual data-entry hours and improving data hygiene.
-                </p>
-                <div className="skill-tags">
-                  <span className="skill-tag">Gemini CLI</span>
-                  <span className="skill-tag">AI Agents</span>
-                  <span className="skill-tag">Data Parsing</span>
+            <PageTransition>
+              <section>
+                <h2><Cpu size={24} /> AI Lab & Projects</h2>
+                <div className="terminal-grid">
+                  <TerminalProjectCard 
+                    title="Automated Data Categorisation Agent"
+                    description="Utilised Gemini CLI to automate the categorisation of unstructured data, significantly reducing manual data-entry hours and improving data hygiene."
+                    tags={["Gemini CLI", "AI Agents", "Data Parsing"]}
+                  />
+                  <TerminalProjectCard 
+                    title="AI-Assisted PostgreSQL App Prototype"
+                    description="Prototyped a PostgreSQL-based application leveraging AI-assisted development tools to accelerate the database architecture and initial codebase generation."
+                    tags={["PostgreSQL", "AI Assisted Development", "Rapid Prototyping"]}
+                  />
+                  <TerminalProjectCard 
+                    title="Speech-to-JSON Workflow Automation"
+                    description="Spearheaded AI agent creation and workflow automations, including using AI to parse raw speech into structured JSON objects for automated downstream processing."
+                    tags={["Workflow Automation", "Speech-to-Text AI", "JSON"]}
+                  />
+                  <TerminalProjectCard 
+                    title="AI-Assisted Photo Organiser"
+                    description="Built an autonomous PowerShell tool using Gemini CLI to process thousands of images across a NAS. Extracted EXIF metadata, performed reverse geocoding via OpenStreetMap API, and auto-organised files into location-based hierarchies."
+                    tags={["PowerShell", "AI Agents", "REST APIs", "Automation"]}
+                  />
                 </div>
-              </div>
-              <div className="card">
-                <h3>AI-Assisted PostgreSQL App Prototype</h3>
-                <p style={{color: 'var(--text-muted)', marginBottom: '1rem'}}>
-                  Prototyped a PostgreSQL-based application leveraging AI-assisted development tools to accelerate the database architecture and initial codebase generation.
-                </p>
-                <div className="skill-tags">
-                  <span className="skill-tag">PostgreSQL</span>
-                  <span className="skill-tag">AI Assisted Development</span>
-                  <span className="skill-tag">Rapid Prototyping</span>
-                </div>
-              </div>
-              <div className="card">
-                <h3>Speech-to-JSON Workflow Automation</h3>
-                <p style={{color: 'var(--text-muted)', marginBottom: '1rem'}}>
-                  Spearheaded AI agent creation and workflow automations, including using AI to parse raw speech into structured JSON objects for automated downstream processing.
-                </p>
-                <div className="skill-tags">
-                  <span className="skill-tag">Workflow Automation</span>
-                  <span className="skill-tag">Speech-to-Text AI</span>
-                  <span className="skill-tag">JSON</span>
-                </div>
-              </div>
-              <div className="card">
-                <h3>AI-Assisted Photo Organiser</h3>
-                <p style={{color: 'var(--text-muted)', marginBottom: '1rem'}}>
-                  Built an autonomous PowerShell tool using <strong>Gemini CLI</strong> to process thousands of images across a NAS. 
-                  Extracted EXIF metadata, performed reverse geocoding via OpenStreetMap API, and auto-organised files into location-based hierarchies.
-                </p>
-                <div className="skill-tags">
-                  <span className="skill-tag">PowerShell</span>
-                  <span className="skill-tag">AI Agents</span>
-                  <span className="skill-tag">REST APIs</span>
-                  <span className="skill-tag">Automation</span>
-                </div>
-              </div>
-            </section>
+              </section>
+            </PageTransition>
           } />
           <Route path="/data-strategy" element={
-            <section>
-              <h2><ChartNoAxesCombined size={24} /> Data & Strategy</h2>
-              <div className="card">
-                <h3>SQL Data Feed Re-engineering</h3>
-                <p style={{color: 'var(--text-muted)', marginBottom: '1rem'}}>
-                  Optimised complex data pipelines for enterprise-scale CRM at Just Eat. Reduced reliance on external engineering tickets by 40% through agile SQL adjustments and feed ownership.
-                </p>
-                <div className="skill-tags">
-                  <span className="skill-tag">SQL</span>
-                  <span className="skill-tag">Data Architecture</span>
-                  <span className="skill-tag">Salesforce Marketing Cloud</span>
+            <PageTransition>
+              <section>
+                <h2><ChartNoAxesCombined size={24} /> Data & Strategy</h2>
+                <div className="card" style={{ background: 'rgba(38, 38, 38, 0.7)', backdropFilter: 'blur(10px)' }}>
+                  <h3>SQL Data Feed Re-engineering</h3>
+                  <p style={{color: 'var(--text-muted)', marginBottom: '1rem'}}>
+                    Optimised complex data pipelines for enterprise-scale CRM at Just Eat. Reduced reliance on external engineering tickets by 40% through agile SQL adjustments and feed ownership.
+                  </p>
+                  <div className="skill-tags">
+                    <span className="skill-tag">SQL</span>
+                    <span className="skill-tag">Data Architecture</span>
+                    <span className="skill-tag">Salesforce Marketing Cloud</span>
+                  </div>
                 </div>
-              </div>
-              <div className="card">
-                <h3>Strategic Cohort Analysis</h3>
-                <p style={{color: 'var(--text-muted)', marginBottom: '1rem'}}>
-                  Expertise in performing deep-dive cohort analysis to track customer retention and attrition over time. Utilising data-driven insights to identify churn patterns and implement targeted intervention strategies.
-                </p>
-                <div className="project-image" style={{marginTop: '1.5rem', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--card-border)'}}>
-                  <RetentionHeatmap />
+                <div className="card" style={{ background: 'rgba(38, 38, 38, 0.7)', backdropFilter: 'blur(10px)' }}>
+                  <h3>Strategic Cohort Analysis</h3>
+                  <p style={{color: 'var(--text-muted)', marginBottom: '1rem'}}>
+                    Expertise in performing deep-dive cohort analysis to track customer retention and attrition over time. Utilising data-driven insights to identify churn patterns and implement targeted intervention strategies.
+                  </p>
+                  <div className="project-image" style={{marginTop: '1.5rem', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--card-border)'}}>
+                    <RetentionHeatmap />
+                  </div>
+                  <div className="skill-tags" style={{marginTop: '1rem'}}>
+                    <span className="skill-tag">Retention Analysis</span>
+                    <span className="skill-tag">Data Visualisation</span>
+                    <span className="skill-tag">CRM Strategy</span>
+                  </div>
                 </div>
-                <div className="skill-tags" style={{marginTop: '1rem'}}>
-                  <span className="skill-tag">Retention Analysis</span>
-                  <span className="skill-tag">Data Visualisation</span>
-                  <span className="skill-tag">CRM Strategy</span>
-                </div>
-              </div>
-            </section>
+              </section>
+            </PageTransition>
           } />
           <Route path="/contact" element={<ContactForm />} />
         </Routes>
-      </div>
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function Root() {
+  return (
+    <BrowserRouter>
+      <App />
     </BrowserRouter>
   );
 }
 
-export default App;
+export default Root;
