@@ -16,25 +16,22 @@ const PageTransition = ({ children }: { children: React.ReactNode }) => (
   </motion.div>
 );
 
-const AIProjectCard = ({ title, description, tags, status }: { title: string, description: string, tags: string[], status: string }) => {
+const ProjectCard = ({ title, description, tags, subtitle }: { title: string, description: string, tags: string[], subtitle?: string }) => {
   return (
-    <div className="ai-project-card">
-      <div className="ai-card-content">
-        <div className="ai-card-tag">PROJECT CASE STUDY</div>
-        <h3 className="ai-card-title">{title}</h3>
-        <p className="ai-card-description">{description}</p>
-        
-        <div className="ai-status-bar">
-          <div className="status-indicator">
-            <span className="status-dot"></span>
-            <span className="status-text">STATUS: {status}</span>
-          </div>
-          <div className="ai-tech-stack">
-            {tags.map(tag => (
-              <span key={tag} className="tech-tag">{tag}</span>
-            ))}
-          </div>
+    <div className="card">
+      <div className="card-header">
+        <div className="card-title">
+          <h3>{title}</h3>
+          {subtitle && <span>{subtitle}</span>}
         </div>
+      </div>
+      <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', lineHeight: '1.6' }}>
+        {description}
+      </p>
+      <div className="skill-tags">
+        {tags.map(tag => (
+          <span key={tag} className="skill-tag">{tag}</span>
+        ))}
       </div>
     </div>
   );
@@ -314,30 +311,30 @@ function App() {
             <PageTransition>
               <section>
                 <h2><Cpu size={24} /> AI Lab & Projects</h2>
-                <div className="ai-project-grid">
-                  <AIProjectCard 
+                <div className="project-grid">
+                  <ProjectCard 
                     title="Automated Data Categorisation Agent"
+                    subtitle="Automation & Agents"
                     description="Automated the processing of thousands of unstructured data entries. By leveraging Gemini CLI, I reduced manual data-entry by 90% and established a scalable taxonomy for better analytical hygiene."
                     tags={["Gemini CLI", "AI Agents", "Data Parsing"]}
-                    status="COMPLETED"
                   />
-                  <AIProjectCard 
+                  <ProjectCard 
                     title="AI-Assisted PostgreSQL App Prototype"
+                    subtitle="Data Engineering"
                     description="Spearheaded the rapid development of a full-stack database application. Used AI-assisted tools to architect complex PostgreSQL schemas and generate boilerplate code, accelerating time-to-market."
                     tags={["PostgreSQL", "AI Assisted Development", "Rapid Prototyping"]}
-                    status="ACTIVE"
                   />
-                  <AIProjectCard 
+                  <ProjectCard 
                     title="Speech-to-JSON Workflow Automation"
+                    subtitle="Workflow Efficiency"
                     description="Created a high-impact workflow that converts raw speech files into structured JSON data. This enables immediate integration into downstream CRM and BI systems for automated insights."
                     tags={["Workflow Automation", "Speech-to-Text AI", "JSON"]}
-                    status="LIVE"
                   />
-                  <AIProjectCard 
+                  <ProjectCard 
                     title="AI-Assisted Photo Organiser"
+                    subtitle="NAS & Cloud Automation"
                     description="Built an autonomous PowerShell tool using Gemini CLI to process large-scale image libraries on a NAS. Extracted EXIF metadata and geocoding to auto-organise files into location hierarchies."
                     tags={["PowerShell", "REST APIs", "Automation"]}
-                    status="ACTIVE"
                   />
                 </div>
               </section>
@@ -347,26 +344,26 @@ function App() {
             <PageTransition>
               <section>
                 <h2><ChartNoAxesCombined size={24} /> Data & Strategy</h2>
-                <div className="card" style={{ background: 'rgba(38, 38, 38, 0.7)', backdropFilter: 'blur(10px)' }}>
-                  <h3>SQL Data Feed Re-engineering</h3>
-                  <p style={{color: 'var(--text-muted)', marginBottom: '1rem'}}>
-                    Optimised complex data pipelines for enterprise-scale CRM at Just Eat. Reduced reliance on external engineering tickets by 40% through agile SQL adjustments and feed ownership.
-                  </p>
-                  <div className="skill-tags">
-                    <span className="skill-tag">SQL</span>
-                    <span className="skill-tag">Data Architecture</span>
-                    <span className="skill-tag">Salesforce Marketing Cloud</span>
+                <ProjectCard 
+                  title="SQL Data Feed Re-engineering"
+                  subtitle="Enterprise Data"
+                  description="Optimised complex data pipelines for enterprise-scale CRM at Just Eat. Reduced reliance on external engineering tickets by 40% through agile SQL adjustments and feed ownership."
+                  tags={["SQL", "Data Architecture", "Salesforce Marketing Cloud"]}
+                />
+                <div className="card">
+                  <div className="card-header">
+                    <div className="card-title">
+                      <h3>Strategic Cohort Analysis</h3>
+                      <span>Retention Strategy</span>
+                    </div>
                   </div>
-                </div>
-                <div className="card" style={{ background: 'rgba(38, 38, 38, 0.7)', backdropFilter: 'blur(10px)' }}>
-                  <h3>Strategic Cohort Analysis</h3>
-                  <p style={{color: 'var(--text-muted)', marginBottom: '1rem'}}>
+                  <p style={{color: 'var(--text-muted)', marginBottom: '1.5rem', lineHeight: '1.6'}}>
                     Expertise in performing deep-dive cohort analysis to track customer retention and attrition over time. Utilising data-driven insights to identify churn patterns and implement targeted intervention strategies.
                   </p>
-                  <div className="project-image" style={{marginTop: '1.5rem', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--card-border)'}}>
+                  <div className="project-image" style={{borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--card-border)'}}>
                     <RetentionHeatmap />
                   </div>
-                  <div className="skill-tags" style={{marginTop: '1rem'}}>
+                  <div className="skill-tags" style={{marginTop: '1.5rem'}}>
                     <span className="skill-tag">Retention Analysis</span>
                     <span className="skill-tag">Data Visualisation</span>
                     <span className="skill-tag">CRM Strategy</span>

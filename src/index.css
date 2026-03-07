@@ -271,115 +271,16 @@ h2 {
   border-color: var(--accent);
 }
 
-/* AI Project Cards - Refined for Readability */
-.ai-project-grid {
+.project-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
 }
 
-.ai-project-card {
-  background: linear-gradient(145deg, rgba(23, 23, 23, 0.9), rgba(10, 10, 10, 0.9));
-  border: 1px solid var(--card-border);
-  border-radius: 20px;
-  overflow: hidden;
-  position: relative;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(12px);
-}
-
-.ai-project-card:hover {
-  transform: translateY(-8px);
-  border-color: var(--accent);
-  box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.6), 0 0 20px -5px var(--accent-glow);
-}
-
-.ai-card-content {
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.ai-card-tag {
-  font-size: 0.7rem;
-  font-weight: 800;
-  color: var(--accent);
-  letter-spacing: 0.15em;
-  margin-bottom: 0.75rem;
-  opacity: 0.8;
-}
-
-.ai-card-title {
-  font-size: 1.6rem;
-  font-weight: 800;
-  margin-bottom: 1.25rem;
-  line-height: 1.2;
-  color: var(--text-main);
-  letter-spacing: -0.01em;
-}
-
-.ai-card-description {
-  color: var(--text-muted);
-  line-height: 1.7;
-  font-size: 1rem;
-  margin-bottom: 2rem;
-  flex-grow: 1;
-}
-
-.ai-status-bar {
-  background: rgba(0, 0, 0, 0.3);
-  padding: 1.25rem;
-  margin: 0 -2rem -2rem -2rem;
-  border-top: 1px solid var(--card-border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.status-indicator {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  background: var(--accent);
-  border-radius: 50%;
-  box-shadow: 0 0 8px var(--accent);
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.4; }
-  100% { opacity: 1; }
-}
-
-.status-text {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #fff;
-  letter-spacing: 0.05em;
-}
-
-.ai-tech-stack {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.tech-tag {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #fff;
-  padding: 0.25rem 0.6rem;
-  border-radius: 4px;
-  font-size: 0.7rem;
-  font-weight: 500;
+@media (max-width: 768px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .skills-grid {
