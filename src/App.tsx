@@ -331,21 +331,24 @@ function App() {
                     tags={["Workflow Automation", "Speech-to-Text AI", "JSON"]}
                   />
                   <ProjectCard 
-                    title="AI-Architected Strategic Portfolio"
+                    title="AI Website Design & Creation"
                     subtitle="Agentic Development"
-                    description="This entire platform was built through strategic orchestration of AI agents. It demonstrates my ability to direct complex technical builds, manage cloud-native deployments (CI/CD), and ensure cross-platform UI consistency using autonomous tools."
-                    tags={["Gemini CLI", "React", "CI/CD", "Prompt Engineering"]}
+                    description="Directed the end-to-end design and build of this professional platform using autonomous AI agents. This case study demonstrates my ability to lead complex technical projects, manage automated deployments (CI/CD), and ensure high-quality, consistent results."
+                    tags={["AI Design", "React", "CI/CD", "GitHub"]}
                   />
                 </div>
-                <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+                <div style={{ marginTop: '3rem', padding: '2rem', background: 'rgba(34, 197, 94, 0.05)', borderRadius: '16px', border: '1px solid rgba(34, 197, 94, 0.1)', textAlign: 'center' }}>
+                  <p style={{ fontSize: '1rem', color: 'var(--text-main)', marginBottom: '1.25rem', fontWeight: '600' }}>
+                    Want to see the AI build log for this website?
+                  </p>
                   <a 
                     href="https://github.com/djillsley/danielillsley-portfolio" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="skill-tag"
-                    style={{ padding: '0.75rem 1.5rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
+                    style={{ padding: '0.75rem 1.5rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.75rem', background: 'var(--accent)', color: '#000', fontWeight: '700', border: 'none' }}
                   >
-                    <Code size={16} /> View Source Code on GitHub
+                    <Code size={18} /> View the Build Log on GitHub
                   </a>
                 </div>
               </section>
