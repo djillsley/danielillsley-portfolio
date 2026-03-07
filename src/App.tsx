@@ -497,34 +497,34 @@ function App() {
           <Route path="/ai-lab" element={
             <PageTransition>
               <section>
-                <h2><Cpu size={24} /> AI Lab & Projects</h2>
+                <h2><Cpu size={24} /> AI Lab</h2>
                 <div className="project-grid">
                   <ProjectCard 
                     title="Automated Data Categorisation Agent"
                     subtitle="Automation & Agents"
-                    description="Automated the processing of thousands of unstructured data entries. By leveraging Gemini CLI, I reduced manual data-entry by 90% and established a scalable taxonomy for better analytical hygiene."
-                    tags={["Gemini CLI", "AI Agents", "Data Parsing"]}
+                    description="Automated the processing of thousands of unstructured images. By leveraging Gemini CLI, Nominatim API, I reduced manual data-entry by 90% and established an organised folder structure."
+                    tags={["Gemini CLI", "AI Agents", "Data Parsing", "Scripts", "API"]}
                     image="/assets/Dans_Gemini_CLI_Process.gif"
                   />
                   <ProjectCard 
                     title="AI-Assisted PostgreSQL App Prototype"
                     subtitle="Data Engineering"
-                    description="Spearheaded the rapid development of a full-stack database application. Used AI-assisted tools to architect complex PostgreSQL schemas and generate boilerplate code, accelerating time-to-market."
-                    tags={["PostgreSQL", "AI Assisted Development", "Rapid Prototyping"]}
+                    description="Prototyped a PostgreSQL-based app leveraging AI-assisted development tools to log and track data from text or voice into the database."
+                    tags={["PostgreSQL", "AI-Assisted Development", "Rapid Prototyping"]}
                     image="/assets/DansApp.PNG"
                   />
                   <ProjectCard 
                     title="Speech-to-JSON Workflow Automation"
                     subtitle="Workflow Efficiency"
                     description="Created a high-impact workflow that converts raw speech files into structured JSON data. This enables immediate integration into downstream CRM and BI systems for automated insights."
-                    tags={["Workflow Automation", "Speech-to-Text AI", "JSON"]}
+                    tags={["Workflow Automation", "Speech-to-Text AI", "Prompting", "JSON"]}
                     image="/assets/make_com Scenario.PNG"
                   />
                   <ProjectCard 
                     title="AI Website Design & Creation"
                     subtitle="Agentic Development"
-                    description="Directed the end-to-end design and build of this professional platform using autonomous AI agents. This case study demonstrates my ability to lead complex technical projects, manage automated deployments (CI/CD), and ensure high-quality, consistent results."
-                    tags={["AI Design", "React", "CI/CD", "GitHub"]}
+                    description="This website? Built from scratch with nothing but Gemini CLI and autonomous AI agents. This case study demonstrates my ability to lead complex technical projects, manage automated deployments, and ensure high-quality, consistent results."
+                    tags={["Gemini CLI", "AI Design", "React", "GitHub"]}
                   />
                 </div>
                 <div style={{ marginTop: '3rem', padding: '2rem', background: 'rgba(34, 197, 94, 0.05)', borderRadius: '16px', border: '1px solid rgba(34, 197, 94, 0.1)', textAlign: 'center' }}>
@@ -552,29 +552,29 @@ function App() {
                   <ProjectCard 
                     title="SQL Data Feed Re-engineering"
                     subtitle="Enterprise Data"
-                    description="Optimised complex data pipelines for enterprise-scale CRM at Just Eat. Reduced reliance on external engineering tickets by 40% through agile SQL adjustments and feed ownership."
-                    tags={["SQL", "Data Architecture", "Salesforce Marketing Cloud"]}
+                    description="Optimised complex data pipelines for enterprise-scale CRM at Just Eat. Reduced reliance on external engineering tickets through agile SQL adjustments and feed ownership."
+                    tags={["SQL", "Data Architecture", "CTEs", "Salesforce Marketing Cloud"]}
                     viz={<DataPipelineViz />}
                   />
                   <ProjectCard 
                     title="Multi-Channel CRM Performance Analysis"
                     subtitle="Omnichannel Insights"
-                    description="Developing holistic performance frameworks across Email, SMS, Push, In-App, and WhatsApp. Correlating engagement metrics with downstream business value to optimize channel-mix strategy."
-                    tags={["Omnichannel", "CRM Analysis", "WhatsApp", "Push Notifications"]}
+                    description="Developing holistic performance frameworks across Email, SMS, Push, In-App, and WhatsApp. Correlating engagement metrics with downstream business value to optimise multi-channel strategy."
+                    tags={["Omnichannel", "CRM Analysis", "Email", "SMS", "WhatsApp", "Push"]}
                     viz={<ChannelPerformanceViz />}
                   />
                   <ProjectCard 
-                    title="Stratified Sampling & Statistical Rigor"
+                    title="Stratified Sampling & Statistical Rigour"
                     subtitle="Experimentation Science"
                     description="Implementing stratified sampling techniques to ensure unbiased testing environments. Focus on eliminating selection bias and ensuring statistical significance in complex CRM experiments."
                     tags={["Statistics", "Sampling", "Data Quality"]}
                     viz={<SamplingViz />}
                   />
                   <ProjectCard 
-                    title="Advanced Segmentation & RFV Modelling"
+                    title="Advanced Segmentation & RFM Modelling"
                     subtitle="Customer Analytics"
-                    description="Architecting sophisticated segmentation models based on Recency, Frequency, and Monetary Value (RFV). Automating lifecycle stage movement to trigger dynamic, high-relevancy communications."
-                    tags={["RFV Modelling", "Segmentation", "Lifecycle Stages"]}
+                    description="Creating sophisticated segmentation models based on Recency, Frequency, and Monetary Value (RFM). Automating lifecycle stage movement to trigger dynamic, high-relevancy communications."
+                    tags={["RFM Modelling", "Segmentation", "Lifecycle Stages", "Lifetime Value"]}
                     viz={<RFVMatrixViz />}
                   />
                   <div className="card">
@@ -594,6 +594,7 @@ function App() {
                       <span className="skill-tag">Retention Analysis</span>
                       <span className="skill-tag">Data Visualisation</span>
                       <span className="skill-tag">CRM Strategy</span>
+                      <span className="skill-tag">Lifecycle</span>
                     </div>
                   </div>
                 </div>
@@ -608,14 +609,14 @@ function App() {
                   <ProjectCard 
                     title="LTV-Driven Strategic Planning"
                     subtitle="Customer Value"
-                    description="Shifting organizational focus from short-term conversion to long-term Customer Lifetime Value (LTV). Designing frameworks that prioritize high-value acquisition and retention to drive sustainable growth."
+                    description="Shifting organisational focus from short-term conversion to long-term Customer Lifetime Value (LTV). Designing frameworks that prioritise high-value acquisition and retention to drive sustainable growth."
                     tags={["LTV", "Growth Strategy", "Financial Modelling"]}
                   />
                   <ProjectCard 
-                    title="Retention Engine & Personalization"
+                    title="Retention Engine & Personalisation"
                     subtitle="Engagement Strategy"
-                    description="Designing 1:1 personalization frameworks that leverage predictive behavioral data to proactively mitigate churn. Focus on high-value user retention through dynamic reward systems and automated re-engagement."
-                    tags={["Retention", "Churn Prevention", "Personalization"]}
+                    description="Designing 1:1 personalisation frameworks that leverage predictive behavioural data to proactively mitigate churn. Focus on high-value user retention through dynamic reward systems and automated re-engagement."
+                    tags={["Retention", "Churn Prevention", "Personalisation"]}
                   />
                   <ProjectCard 
                     title="Lifecycle Architecture & Automation"
@@ -626,13 +627,13 @@ function App() {
                   <ProjectCard 
                     title="Experimentation & Testing Framework"
                     subtitle="Data-Driven Growth"
-                    description="Establishing rigorous A/B/n testing cultures to optimize campaign performance. Utilizing incrementality measurement and significance testing to ensure every strategic move translates to measurable ROI."
+                    description="Establishing rigorous A/B/n testing cultures to optimise campaign performance. Utilising incrementality measurement and significance testing to ensure every strategic move translates to measurable ROI."
                     tags={["A/B Testing", "Incrementality", "ROI"]}
                   />
                   <ProjectCard 
                     title="CRM Infrastructure & Governance"
                     subtitle="Systems Leadership"
-                    description="Scaling CRM operations for multi-brand and multi-market organizations. Implementing robust data governance and system integrations that allow for agile strategic pivots without technical debt."
+                    description="Scaling CRM operations for multi-brand and multi-market organisations. Implementing robust data governance and system integrations that allow for agile strategic pivots without technical debt."
                     tags={["Governance", "Infrastructure", "Scalability"]}
                   />
                 </div>
