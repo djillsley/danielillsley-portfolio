@@ -259,7 +259,14 @@ function App() {
           <Route path="/" element={<Navigate to="/experience" replace />} />
           <Route path="/experience" element={
             <PageTransition>
-              <section>
+              <div className="experience-nav">
+                <span className="nav-label">Jump to:</span>
+                <a href="#qualifications">Qualifications</a>
+                <a href="#professional-experience">Experience</a>
+                <a href="#technical-arsenal">Technical Arsenal</a>
+              </div>
+
+              <section id="qualifications">
                 <h2><Award size={24} /> Qualifications & Certifications</h2>
                 <div className="qual-grid">
                   {[
@@ -284,8 +291,8 @@ function App() {
                 </div>
               </section>
 
-              <section>
-                <h2><Briefcase size={24} /> Experience</h2>
+              <section id="professional-experience">
+                <h2><Briefcase size={24} /> Professional Experience</h2>
                 <JobCard 
                   title="CRM Lead (B2B Marketing)"
                   company="Just Eat, London"
@@ -326,14 +333,17 @@ function App() {
                 />
               </section>
 
-              <section>
+              <section id="technical-arsenal">
                 <h2><Code size={24} /> Technical Arsenal</h2>
-                <div className="skills-grid">
-                  <div className="skill-category">
-                    <h3><Terminal size={16} /> CRM Platforms</h3>
+                <div className="arsenal-container">
+                  <div className="arsenal-category">
+                    <div className="category-header">
+                      <Terminal size={20} className="icon-green" />
+                      <h3>CRM & Marketing Platforms</h3>
+                    </div>
                     <div className="skill-tags">
-                      <span className="skill-tag">Salesforce Marketing Cloud (Expert 10+ years)</span>
-                      <span className="skill-tag">Braze (Highly proficient)</span>
+                      <span className="skill-tag">Salesforce Marketing Cloud (10+ years)</span>
+                      <span className="skill-tag">Braze</span>
                       <span className="skill-tag">HubSpot</span>
                       <span className="skill-tag">Klaviyo</span>
                       <span className="skill-tag">Optimove</span>
@@ -342,13 +352,32 @@ function App() {
                       <span className="skill-tag">Mailchimp</span>
                     </div>
                   </div>
-                  <div className="skill-category">
-                    <h3><Terminal size={16} /> Data & Analytics</h3>
+                  
+                  <div className="arsenal-category">
+                    <div className="category-header">
+                      <ChartNoAxesCombined size={20} className="icon-green" />
+                      <h3>Data, Analytics & BI</h3>
+                    </div>
                     <div className="skill-tags">
-                      <span className="skill-tag">SQL</span>
+                      <span className="skill-tag">SQL (Data Architecture & Querying)</span>
                       <span className="skill-tag">Tableau</span>
                       <span className="skill-tag">Google Analytics</span>
-                      <span className="skill-tag">Excel (Expert)</span>
+                      <span className="skill-tag">Advanced Excel / VBA</span>
+                      <span className="skill-tag">Business Statistics</span>
+                    </div>
+                  </div>
+
+                  <div className="arsenal-category">
+                    <div className="category-header">
+                      <Cpu size={20} className="icon-green" />
+                      <h3>AI & Automation</h3>
+                    </div>
+                    <div className="skill-tags">
+                      <span className="skill-tag">AI Agent Orchestration</span>
+                      <span className="skill-tag">Prompt Engineering</span>
+                      <span className="skill-tag">PowerShell Automation</span>
+                      <span className="skill-tag">REST API Integration</span>
+                      <span className="skill-tag">Make.com / Workflow Automation</span>
                     </div>
                   </div>
                 </div>
