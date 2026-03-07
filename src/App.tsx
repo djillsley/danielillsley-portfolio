@@ -43,7 +43,113 @@ const ImageModal = ({ isOpen, onClose, image, title }: { isOpen: boolean, onClos
   );
 };
 
-const ProjectCard = ({ title, description, tags, subtitle, image }: { title: string, description: string, tags: string[], subtitle?: string, image?: string }) => {
+const DataPipelineViz = () => (
+  <div style={{ background: '#171717', padding: '1.25rem', borderRadius: '12px', border: '1px solid #404040' }}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
+      <div style={{ textAlign: 'center', flex: 1 }}>
+        <div style={{ fontSize: '0.6rem', color: '#a3a3a3', marginBottom: '0.5rem' }}>RAW SQL FEED</div>
+        <div style={{ height: '40px', background: '#333', borderRadius: '4px', border: '1px dashed #555' }}></div>
+      </div>
+      <div style={{ color: 'var(--accent)', fontSize: '1rem' }}>→</div>
+      <div style={{ textAlign: 'center', flex: 1.5, position: 'relative' }}>
+        <div style={{ fontSize: '0.6rem', color: 'var(--accent)', marginBottom: '0.5rem', fontWeight: 'bold' }}>OPTIMISED ARCHITECTURE</div>
+        <div style={{ height: '50px', background: 'rgba(34, 197, 94, 0.1)', borderRadius: '4px', border: '1px solid var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ width: '80%', height: '4px', background: 'var(--accent)', borderRadius: '2px' }}></div>
+        </div>
+      </div>
+      <div style={{ color: 'var(--accent)', fontSize: '1rem' }}>→</div>
+      <div style={{ textAlign: 'center', flex: 1 }}>
+        <div style={{ fontSize: '0.6rem', color: '#a3a3a3', marginBottom: '0.5rem' }}>CRM ACTIVATION</div>
+        <div style={{ height: '40px', background: '#333', borderRadius: '4px', border: '1px dashed #555' }}></div>
+      </div>
+    </div>
+  </div>
+);
+
+const ChannelPerformanceViz = () => {
+  const channels = [
+    { name: 'Email', val: 85, color: '#22c55e' },
+    { name: 'WhatsApp', val: 92, color: '#10b981' },
+    { name: 'Push', val: 65, color: '#059669' },
+    { name: 'SMS', val: 45, color: '#047857' }
+  ];
+  return (
+    <div style={{ background: '#171717', padding: '1.25rem', borderRadius: '12px', border: '1px solid #404040' }}>
+      <div style={{ fontSize: '0.65rem', color: '#a3a3a3', marginBottom: '1rem', fontWeight: 'bold', textTransform: 'uppercase' }}>Channel ROI / Engagement Index</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+        {channels.map(c => (
+          <div key={c.name} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <div style={{ fontSize: '0.65rem', width: '60px', color: '#f5f5f5' }}>{c.name}</div>
+            <div style={{ flex: 1, height: '8px', background: '#262626', borderRadius: '4px', overflow: 'hidden' }}>
+              <motion.div 
+                initial={{ width: 0 }}
+                animate={{ width: `${c.val}%` }}
+                style={{ height: '100%', background: c.color }}
+              />
+            </div>
+            <div style={{ fontSize: '0.65rem', color: 'var(--accent)', fontWeight: 'bold' }}>{c.val}%</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const SamplingViz = () => (
+  <div style={{ background: '#171717', padding: '1.25rem', borderRadius: '12px', border: '1px solid #404040', textAlign: 'center' }}>
+    <div style={{ fontSize: '0.65rem', color: '#a3a3a3', marginBottom: '1rem', fontWeight: 'bold', textTransform: 'uppercase' }}>Stratified Population Balancing</div>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', gap: '4px', marginBottom: '1rem' }}>
+      {[...Array(24)].map((_, i) => (
+        <div key={i} style={{ 
+          height: '12px', 
+          borderRadius: '2px', 
+          background: i % 3 === 0 ? 'var(--accent)' : i % 3 === 1 ? '#3b82f6' : '#6366f1',
+          opacity: [2, 5, 11, 15, 18, 21].includes(i) ? 1 : 0.2
+        }}></div>
+      ))}
+    </div>
+    <div style={{ fontSize: '0.6rem', color: 'var(--accent)' }}>Highlighted: Statistically Significant Sample (N=balanced)</div>
+  </div>
+);
+
+const RFVMatrixViz = () => {
+  const segments = [
+    { label: 'Champions', color: '#166534' },
+    { label: 'Loyal', color: '#15803d' },
+    { label: 'At Risk', color: '#991b1b' },
+    { label: 'New', color: '#1e40af' }
+  ];
+  return (
+    <div style={{ background: '#171717', padding: '1rem', borderRadius: '12px', border: '1px solid #404040' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '4px' }}>
+        {[...Array(9)].map((_, i) => (
+          <div key={i} style={{ 
+            height: '30px', 
+            borderRadius: '2px', 
+            background: i === 0 ? '#166534' : i === 1 ? '#15803d' : i === 8 ? '#991b1b' : '#262626',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '0.5rem',
+            fontWeight: 'bold'
+          }}>
+            {i === 0 ? 'R5/F5' : i === 8 ? 'R1/F1' : ''}
+          </div>
+        ))}
+      </div>
+      <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.75rem', justifyContent: 'center' }}>
+        {segments.map(s => (
+          <div key={s.label} style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
+            <div style={{ width: '6px', height: '6px', borderRadius: '1px', background: s.color }}></div>
+            <div style={{ fontSize: '0.55rem', color: '#a3a3a3' }}>{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const ProjectCard = ({ title, description, tags, subtitle, image, viz }: { title: string, description: string, tags: string[], subtitle?: string, image?: string, viz?: React.ReactNode }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -59,6 +165,9 @@ const ProjectCard = ({ title, description, tags, subtitle, image }: { title: str
           </div>
           {image && <MousePointer2 size={16} className="preview-hint" />}
         </div>
+        
+        {viz && <div style={{ marginBottom: '1.5rem' }}>{viz}</div>}
+
         <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', lineHeight: '1.6' }}>
           {description}
         </p>
@@ -444,24 +553,28 @@ function App() {
                     subtitle="Enterprise Data"
                     description="Optimised complex data pipelines for enterprise-scale CRM at Just Eat. Reduced reliance on external engineering tickets by 40% through agile SQL adjustments and feed ownership."
                     tags={["SQL", "Data Architecture", "Salesforce Marketing Cloud"]}
+                    viz={<DataPipelineViz />}
                   />
                   <ProjectCard 
                     title="Multi-Channel CRM Performance Analysis"
                     subtitle="Omnichannel Insights"
                     description="Developing holistic performance frameworks across Email, SMS, Push, In-App, and WhatsApp. Correlating engagement metrics with downstream business value to optimize channel-mix strategy."
                     tags={["Omnichannel", "CRM Analysis", "WhatsApp", "Push Notifications"]}
+                    viz={<ChannelPerformanceViz />}
                   />
                   <ProjectCard 
                     title="Stratified Sampling & Statistical Rigor"
                     subtitle="Experimentation Science"
                     description="Implementing stratified sampling techniques to ensure unbiased testing environments. Focus on eliminating selection bias and ensuring statistical significance in complex CRM experiments."
                     tags={["Statistics", "Sampling", "Data Quality"]}
+                    viz={<SamplingViz />}
                   />
                   <ProjectCard 
                     title="Advanced Segmentation & RFV Modelling"
                     subtitle="Customer Analytics"
                     description="Architecting sophisticated segmentation models based on Recency, Frequency, and Monetary Value (RFV). Automating lifecycle stage movement to trigger dynamic, high-relevancy communications."
                     tags={["RFV Modelling", "Segmentation", "Lifecycle Stages"]}
+                    viz={<RFVMatrixViz />}
                   />
                   <div className="card">
                     <div className="card-header">
