@@ -166,11 +166,12 @@ const ProjectCard = ({ title, description, tags, subtitle, image, viz }: { title
           {image && <MousePointer2 size={16} className="preview-hint" />}
         </div>
         
-        {viz && <div style={{ marginBottom: '1.5rem' }}>{viz}</div>}
-
         <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', lineHeight: '1.6' }}>
           {description}
         </p>
+
+        {viz && <div style={{ marginBottom: '1.5rem' }}>{viz}</div>}
+
         <div className="skill-tags">
           {tags.map(tag => (
             <span key={tag} className="skill-tag">{tag}</span>
