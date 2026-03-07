@@ -445,6 +445,24 @@ function App() {
                     description="Optimised complex data pipelines for enterprise-scale CRM at Just Eat. Reduced reliance on external engineering tickets by 40% through agile SQL adjustments and feed ownership."
                     tags={["SQL", "Data Architecture", "Salesforce Marketing Cloud"]}
                   />
+                  <ProjectCard 
+                    title="Multi-Channel CRM Performance Analysis"
+                    subtitle="Omnichannel Insights"
+                    description="Developing holistic performance frameworks across Email, SMS, Push, In-App, and WhatsApp. Correlating engagement metrics with downstream business value to optimize channel-mix strategy."
+                    tags={["Omnichannel", "CRM Analysis", "WhatsApp", "Push Notifications"]}
+                  />
+                  <ProjectCard 
+                    title="Stratified Sampling & Statistical Rigor"
+                    subtitle="Experimentation Science"
+                    description="Implementing stratified sampling techniques to ensure unbiased testing environments. Focus on eliminating selection bias and ensuring statistical significance in complex CRM experiments."
+                    tags={["Statistics", "Sampling", "Data Quality"]}
+                  />
+                  <ProjectCard 
+                    title="Advanced Segmentation & RFV Modelling"
+                    subtitle="Customer Analytics"
+                    description="Architecting sophisticated segmentation models based on Recency, Frequency, and Monetary Value (RFV). Automating lifecycle stage movement to trigger dynamic, high-relevancy communications."
+                    tags={["RFV Modelling", "Segmentation", "Lifecycle Stages"]}
+                  />
                   <div className="card">
                     <div className="card-header">
                       <div className="card-title">
@@ -473,6 +491,12 @@ function App() {
               <section>
                 <h2><Layers size={24} /> Strategic Frameworks</h2>
                 <div className="project-grid">
+                  <ProjectCard 
+                    title="LTV-Driven Strategic Planning"
+                    subtitle="Customer Value"
+                    description="Shifting organizational focus from short-term conversion to long-term Customer Lifetime Value (LTV). Designing frameworks that prioritize high-value acquisition and retention to drive sustainable growth."
+                    tags={["LTV", "Growth Strategy", "Financial Modelling"]}
+                  />
                   <ProjectCard 
                     title="Retention Engine & Personalization"
                     subtitle="Engagement Strategy"
