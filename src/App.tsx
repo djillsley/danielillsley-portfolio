@@ -331,11 +331,22 @@ function App() {
                     tags={["Workflow Automation", "Speech-to-Text AI", "JSON"]}
                   />
                   <ProjectCard 
-                    title="AI-Assisted Photo Organiser"
-                    subtitle="NAS & Cloud Automation"
-                    description="Built an autonomous PowerShell tool using Gemini CLI to process large-scale image libraries on a NAS. Extracted EXIF metadata and geocoding to auto-organise files into location hierarchies."
-                    tags={["PowerShell", "REST APIs", "Automation"]}
+                    title="AI-Architected Strategic Portfolio"
+                    subtitle="Agentic Development"
+                    description="This entire platform was built through strategic orchestration of AI agents. It demonstrates my ability to direct complex technical builds, manage cloud-native deployments (CI/CD), and ensure cross-platform UI consistency using autonomous tools."
+                    tags={["Gemini CLI", "React", "CI/CD", "Prompt Engineering"]}
                   />
+                </div>
+                <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+                  <a 
+                    href="https://github.com/djillsley/danielillsley-portfolio" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="skill-tag"
+                    style={{ padding: '0.75rem 1.5rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
+                  >
+                    <Code size={16} /> View Source Code on GitHub
+                  </a>
                 </div>
               </section>
             </PageTransition>
