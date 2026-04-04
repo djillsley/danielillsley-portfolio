@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { BrowserRouter, Routes, Route, NavLink, Navigate, useLocation } from 'react-router-dom';
-import { Mail, Briefcase, Code, Terminal, Award, ChevronDown, ChevronUp, Linkedin, Download, ChartNoAxesCombined, GraduationCap, ShieldCheck, Cpu, Layers, MousePointer2, X } from 'lucide-react';
+import { Mail, Briefcase, Code, Terminal, Award, ChevronDown, ChevronUp, Linkedin, Download, ChartNoAxesCombined, GraduationCap, ShieldCheck, Cpu, Layers, MousePointer2, X, User } from 'lucide-react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import DataNodeBackground from './components/DataNodeBackground';
@@ -371,10 +371,35 @@ function App() {
             <PageTransition>
               <div className="experience-nav">
                 <span className="nav-label">Jump to:</span>
+                <a href="#about">About</a>
                 <a href="#qualifications">Qualifications</a>
                 <a href="#professional-experience">Experience</a>
                 <a href="#technical-arsenal">Technical Arsenal</a>
               </div>
+
+              <section id="about">
+                <h2><User size={24} /> About Me</h2>
+                <div className="card">
+                  <p style={{ color: 'var(--text-main)', lineHeight: '1.8', fontSize: '1.05rem', marginBottom: '1.25rem' }}>
+                    I'm a strategic technical leader with 13+ years of experience driving customer retention, lifetime value, and multi-channel engagement across fast-paced, data-heavy environments. Currently CRM Lead at Just Eat, where I own the end-to-end architecture of B2B marketing operations across UK &amp; Ireland — spanning email, SMS, push, in-app, and WhatsApp.
+                  </p>
+                  <p style={{ color: 'var(--text-muted)', lineHeight: '1.8', fontSize: '1rem', marginBottom: '1.5rem' }}>
+                    My background sits at the intersection of commercial strategy and technical execution: equally comfortable presenting retention frameworks to senior leadership and re-engineering SQL data pipelines from scratch. More recently, I've been building AI-powered automation tools and agents to scale output without scaling headcount — and that's the part I find most exciting.
+                  </p>
+                  <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
+                    {[
+                      { label: 'Years Experience', value: '13+' },
+                      { label: 'CRM Platforms', value: '8+' },
+                      { label: 'Channels Owned', value: '5' },
+                    ].map(stat => (
+                      <div key={stat.label} style={{ textAlign: 'center', padding: '0.75rem 1.25rem', background: 'rgba(34, 197, 94, 0.05)', border: '1px solid rgba(34, 197, 94, 0.15)', borderRadius: '12px', flex: '1', minWidth: '100px' }}>
+                        <div style={{ fontSize: '1.75rem', fontWeight: '800', color: 'var(--accent)', lineHeight: 1 }}>{stat.value}</div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{stat.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
 
               <section id="qualifications">
                 <h2><Award size={24} /> Qualifications & Certifications</h2>
