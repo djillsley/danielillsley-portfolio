@@ -253,7 +253,7 @@ const RetentionHeatmap = () => {
   );
 };
 
-const JobCard = ({ title, company, date, bullets }: { title: string, company: string, date: string, bullets: {bold?: string, text: string}[] }) => {
+const JobCard = ({ title, company, date, description, bullets }: { title: string, company: string, date: string, description?: string, bullets?: {bold?: string, text: string}[] }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -273,19 +273,22 @@ const JobCard = ({ title, company, date, bullets }: { title: string, company: st
         layout
         className={`collapsible-content ${isExpanded ? 'expanded' : 'collapsed'}`}
       >
-        <ul>
-          {bullets.map((bullet, idx) => (
-            <motion.li 
-              key={idx}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: idx * 0.05 }}
-            >
-              {bullet.bold && <strong>{bullet.bold}: </strong>}
-              {bullet.text}
-            </motion.li>
-          ))}
-        </ul>
+        {description && <p style={{ color: 'var(--text-muted)', marginBottom: '1rem', lineHeight: '1.6' }}>{description}</p>}
+        {bullets && bullets.length > 0 && (
+          <ul>
+            {bullets.map((bullet, idx) => (
+              <motion.li 
+                key={idx}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: idx * 0.05 }}
+              >
+                {bullet.bold && <strong>{bullet.bold}: </strong>}
+                {bullet.text}
+              </motion.li>
+            ))}
+          </ul>
+        )}
       </motion.div>
       <button className="toggle-btn" onClick={() => setIsExpanded(!isExpanded)}>
         {isExpanded ? <><ChevronUp size={16} /> Show Less</> : <><ChevronDown size={16} /> Read Full Details</>}
@@ -381,14 +384,14 @@ function App() {
                 <h2><User size={24} /> About Me</h2>
                 <div className="card">
                   <p style={{ color: 'var(--text-main)', lineHeight: '1.8', fontSize: '1.05rem', marginBottom: '1.25rem' }}>
-                    I'm a strategic technical leader with 13+ years of experience driving customer retention, lifetime value, and multi-channel engagement across fast-paced, data-heavy environments. Currently CRM Lead at Just Eat, where I own the end-to-end architecture of B2B marketing operations across UK &amp; Ireland — spanning email, SMS, push, in-app, and WhatsApp.
+                    Strategic, technical leader with 14+ years' experience driving high-retention KPIs and marketing operations within high-pressure environments. Expert in architecting multi-channel engagement strategies and managing complex data pipelines with SQL. A hands-on leader who bridges the gap between high-level commercial strategy and technical execution.
                   </p>
                   <p style={{ color: 'var(--text-muted)', lineHeight: '1.8', fontSize: '1rem', marginBottom: '1.5rem' }}>
                     My background sits at the intersection of commercial strategy and technical execution: equally comfortable presenting retention frameworks to senior leadership and re-engineering SQL data pipelines from scratch. More recently, I've been building AI-powered automation tools and agents to scale output without scaling headcount — and that's the part I find most exciting.
                   </p>
                   <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
                     {[
-                      { label: 'Years Experience', value: '13+' },
+                      { label: 'Years Experience', value: '14+' },
                       { label: 'CRM Platforms', value: '8+' },
                       { label: 'Channels Owned', value: '5' },
                     ].map(stat => (
@@ -429,9 +432,22 @@ function App() {
               <section id="professional-experience">
                 <h2><Briefcase size={24} /> Professional Experience</h2>
                 <JobCard 
+                  title="Senior CRM Manager (FTC)"
+                  company="Save My Exams, London (Remote)"
+                  date="Jun 2026 — Present"
+                  description="Own CRM strategy and delivery for a fast-growing subscription-based EdTech platform supporting students through GCSE, A-Level, IB and IGCSE study, covering the full lifecycle. Focussed on freemium upsell, course cross-sell and student experience."
+                  bullets={[
+                    { bold: "Strategic Ownership", text: "Took ownership of CRM strategy from day one, building a new roadmap spanning acquisition, engagement and retention lifecycle journeys." },
+                    { bold: "Incrementality Testing", text: "Built a holdout-based testing framework to isolate CRM's true commercial impact from organic behaviour, with one recovery journey showing a ~56% uplift against a matched control." },
+                    { bold: "Reporting Automation", text: "Automated reporting from the data warehouse into live reporting, cutting manual report-building and improving accuracy." },
+                    { bold: "Delivery Infrastructure", text: "Introduced the CRM function's first structured project-tracking system, improving delivery visibility across the business." },
+                    { bold: "AI & Efficiency", text: "Extended AI-assisted copywriting, campaign build and data-analysis workflows into a new vertical, maintaining delivery pace through the transition period." }
+                  ]}
+                />
+                <JobCard 
                   title="CRM Lead (B2B Marketing)"
                   company="Just Eat, London"
-                  date="Nov 2021 — Present"
+                  date="Nov 2021 — Jul 2026"
                   bullets={[
                     { bold: "Multi-Channel Innovation", text: "Implemented Just Eat's first WhatsApp channel, diversifying the CRM mix and boosting conversion." },
                     { bold: "Technical Data Architecture", text: "Took ownership and re-engineered the SQL-based data feed into Salesforce Marketing Cloud, enabling agile adjustments and reducing reliance on external engineering tickets." },
@@ -439,7 +455,7 @@ function App() {
                     { bold: "Operational Scaling", text: "Scaled up CRM operations from a single audience to four (UK/IE partner & courier)." },
                     { bold: "Funnel Optimisation", text: "Integrated near-time data pipelines to onboarding journeys to reduce time through funnel." },
                     { bold: "Strategic Automation", text: "Implementation of multiple automations covering the full lifecycle: highly dynamic welcome and onboarding comms, churn prevention, transactional, milestones, vouchering." },
-                    { bold: "Cross-Functional Leadership", text: "Supporting many pillars outside of marketing across the business: sales, account management, legal/compliance, finance, operations and customer service." },
+                    { bold: "Cross-Functional Leadership", text: "Supported many pillars outside of marketing across the business: sales, account management, legal/compliance, finance, operations and customer service." },
                     { bold: "Performance Recognition", text: "Promoted from Senior Manager to Lead." }
                   ]}
                 />
@@ -459,12 +475,23 @@ function App() {
                   title="Casino Retention Manager"
                   company="Win Technologies, London"
                   date="Mar 2016 — Jun 2017"
+                  description="Directed retention strategy and operational effectiveness for several markets within the main casino brand. Reported on and analysed casino performance to strategise improvements to retention KPIs — increasing customer engagement and value, and decreasing churn."
                   bullets={[
-                    { bold: "Operational Effectiveness", text: "Directed retention strategy and operational effectiveness for several markets within the main casino brand." },
-                    { bold: "Reporting", text: "Reporting and analysing the effectiveness of the casino to further strategise improvements to retention KPIs, such as increasing customer engagement and values, and decreasing customer churn." },
-                    { bold: "Budget Management", text: "Managed the casino promotion budget for UK retention campaigns." },
-                    { bold: "Direct Mail Optimisation", text: "Optimised direct mail schedules for maximum impact and ROI." }
+                    { text: "Managed the casino promotion budget for UK retention campaigns." },
+                    { text: "Optimised the direct mail schedule for maximum impact and ROI." }
                   ]}
+                />
+                <JobCard 
+                  title="Retention Team Leader"
+                  company="Win Technologies, London"
+                  date="Jan 2014 — Mar 2016"
+                  description="Led a retention and CRM team operating across different regions in casino and bingo products. Responsible for translating high-level strategy into localised execution and monthly KPI reporting."
+                />
+                <JobCard 
+                  title="Loyalty (Retention) Executive"
+                  company="Win Technologies, London"
+                  date="Aug 2012 — Jan 2014"
+                  description="Creation of promotions and analysis of results, including back-office set-up and project management."
                 />
               </section>
 
@@ -478,6 +505,7 @@ function App() {
                     </div>
                     <div className="skill-tags">
                       <span className="skill-tag">Salesforce Marketing Cloud (10+ years)</span>
+                      <span className="skill-tag">Iterable</span>
                       <span className="skill-tag">Braze</span>
                       <span className="skill-tag">HubSpot</span>
                       <span className="skill-tag">Klaviyo</span>
@@ -510,6 +538,9 @@ function App() {
                     <div className="skill-tags">
                       <span className="skill-tag">AI Agent Orchestration</span>
                       <span className="skill-tag">Prompt Engineering</span>
+                      <span className="skill-tag">Google Gemini</span>
+                      <span className="skill-tag">Antigravity</span>
+                      <span className="skill-tag">Claude Code</span>
                       <span className="skill-tag">PowerShell Automation</span>
                       <span className="skill-tag">REST API Integration</span>
                       <span className="skill-tag">Make.com / Workflow Automation</span>
