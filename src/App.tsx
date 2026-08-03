@@ -254,8 +254,6 @@ const RetentionHeatmap = () => {
 };
 
 const JobCard = ({ title, company, date, description, bullets }: { title: string, company: string, date: string, description?: string, bullets?: {bold?: string, text: string}[] }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
   return (
     <motion.div 
       className="card"
@@ -269,10 +267,7 @@ const JobCard = ({ title, company, date, description, bullets }: { title: string
         </div>
         <motion.div layout="position" className="card-date">{date}</motion.div>
       </div>
-      <motion.div 
-        layout
-        className={`collapsible-content ${isExpanded ? 'expanded' : 'collapsed'}`}
-      >
+      <motion.div layout>
         {description && <p style={{ color: 'var(--text-muted)', marginBottom: '1rem', lineHeight: '1.6' }}>{description}</p>}
         {bullets && bullets.length > 0 && (
           <ul>
@@ -290,9 +285,6 @@ const JobCard = ({ title, company, date, description, bullets }: { title: string
           </ul>
         )}
       </motion.div>
-      <button className="toggle-btn" onClick={() => setIsExpanded(!isExpanded)}>
-        {isExpanded ? <><ChevronUp size={16} /> Show Less</> : <><ChevronDown size={16} /> Read Full Details</>}
-      </button>
     </motion.div>
   );
 };
